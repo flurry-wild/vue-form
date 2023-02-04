@@ -1,6 +1,8 @@
 <template>
-    <gallery/>
-    <candidateForm/>
+    <div>
+        <Gallery/>
+        <CandidateForm/>
+    </div>
 </template>
 <script>
 import Gallery from './Gallery.vue';
@@ -13,6 +15,3 @@ export default {
     name: 'App',
 }
 </script>
-<style>
-
-</style>

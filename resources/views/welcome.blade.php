@@ -17,10 +17,6 @@
         </style>
         <link rel="stylesheet" href="{{ mix('css/app.css') }}">
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css">
-<!--        <link rel="preload" as="image" href="images/1643181508_1-phonoteka-org-p-fon-dlya-prezentatsii-komanda-1.jpg">
-        <link rel="preload" as="image" href="images/laptop-20220328-1.jpg">
-        <link rel="preload" as="image" href="images/images/1_1.jpg">
-        <link rel="preload" as="image" href="images/e817855d75dccee4bc1b050d4f9a7399217997ce0_599_399_c.jpg">-->
         <link rel="preload" as="image" href="images/photos.json" crossorigin>
     </head>
     <body>

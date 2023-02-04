@@ -1,40 +1,61 @@
 <template>
     <div class="card bg-green-500 p-5 m-auto">
         <div class="p-inputgroup mt-5 bg-green-400 p-6 border-round">
-            <div class="flex align-content-around align-items-center flex-wrap card-container m-auto">
-                <label for="fio" class="m-3 font-semibold">ФИО</label>
-                <InputText type="text" v-model="form.fio" id="fio" class="m-3"/>
+            <div class="grid w-full">
+                <div class="col-4 md:col-2 flex align-items-center justify-content-center">
+                    <label for="fio" class="m-3 font-semibold">ФИО</label>
+                </div>
+                <div class="col-8 md:col-10">
+                    <InputText type="text" v-model="form.fio" id="fio" class="m-3 w-full"/>
+                </div>
             </div>
         </div>
         <div class="p-inputgroup mt-5 bg-green-400 p-6 border-round">
-            <div class="flex align-content-around align-items-center flex-wrap card-container m-auto">
-                <label for="calendar" class="m-4 font-semibold">Дата рождения</label>
-                <InputMask v-model="form.birthday" mask="99/99/9999" slotChar="mm/dd/yyyy"/>
+            <div class="grid w-full flex justify-content-center align-items-center">
+                <div class="col-12 md:col-4 flex justify-content-center">
+                    <label for="calendar" class="m-4 font-semibold">Дата рождения</label>
+                </div>
+                <div class="col-12 md:col-4">
+                    <InputMask v-model="form.birthday" mask="99/99/9999" slotChar="mm/dd/yyyy" class="w-full"/>
+                </div>
             </div>
         </div>
         <div class="p-inputgroup mt-5 bg-green-400 p-6 border-round">
-            <div class="flex align-content-around align-items-center flex-wrap card-container m-auto">
-                <label for="calendar" class="m-4 font-semibold">Выберите дату собеседования</label>
-                <Calendar id="calendar"></Calendar>
+            <div class="grid w-full flex justify-content-center align-items-center">
+                <div class="col-12 md:col-4 flex justify-content-center">
+                    <label for="calendar" class="m-4 font-semibold">Выберите дату собеседования</label>
+                </div>
+                <div class="col-12 md:col-4 flex justify-content-center align-items-center">
+                    <Calendar id="calendar" v-model="form.calendarValue" dateFormat="dd-mm-yy" class="w-full"></Calendar>
+                    <Calendar v-model="form.time" :showTime="true" :timeOnly="true" class="w-full"/>
+                </div>
             </div>
         </div>
         <div class="p-inputgroup mt-5 bg-green-400 p-6 border-round">
-            <div class="flex align-content-around align-items-center flex-wrap card-container m-auto">
-                <label for="about" class="m-4 font-semibold">О себе</label>
-                <Textarea v-model="form.about" :autoResize="true" rows="5" cols="70" id="about"/>
+            <div class="grid w-full flex justify-content-center align-items-center">
+                <div class="col-12 md:col-4 flex justify-content-center">
+                    <label for="about" class="m-4 font-semibold">О себе</label>
+                </div>
+                <div class="col-12 md:col-8 flex justify-content-center align-items-center">
+                    <Textarea v-model="form.about" :autoResize="true" rows="5" cols="70" id="about" class="w-full"/>
+                </div>
             </div>
         </div>
         <div class="p-inputgroup mt-5 bg-green-400 p-6 border-round">
-            <div class="flex flex-column align-content-around align-items-center flex-wrap card-container m-auto">
-                <div class="flex flex-row flex-wrap">
-                    <label class="m-4 font-semibold">Семейное положение</label>
-                    <div class="flex flex-row flex-wrap m-2 align-items-center">
-                        <label for="ms1" class="m-1 font-semibold">Женат/Замужем </label>
-                        <RadioButton name="marital_status" value="true" v-model="marital_status" id="ms1"/>
+            <div class="grid w-full flex justify-content-center align-items-center">
+                <div class="col-12 md:col-8 grid">
+                    <div class="col-12 md:col-4 flex align-items-center justify-content-center">
+                        <label class="font-semibold">Семейное положение</label>
                     </div>
-                    <div class="flex flex-row flex-wrap m-2 align-items-center">
-                        <label for="ms2" class="m-1 font-semibold">Не женат/Не замужем </label>
-                        <RadioButton name="marital_status" value="false" v-model="marital_status"  id="ms2"/>
+                    <div class="col-12 md:col-8 flex justify-content-center align-items-center">
+                        <div class="flex m-2 justify-content-center align-items-center">
+                            <label for="ms1" class="m-1 font-semibold">Женат/Замужем </label>
+                            <RadioButton name="marital_status" value="true" v-model="marital_status" id="ms1"/>
+                        </div>
+                        <div class="flex m-2 justify-content-center align-items-center">
+                            <label for="ms2" class="m-1 font-semibold">Не женат/Не замужем </label>
+                            <RadioButton name="marital_status" value="false" v-model="marital_status"  id="ms2"/>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -44,7 +65,7 @@
                 <Button label="Отправить" @click="checkForm"/>
             </div>
         </div>
-        <div class="p-inputgroup mt-5 bg-green-400 p-6 border-round">
+<!--        <div class="p-inputgroup mt-5 bg-green-400 p-6 border-round">
             <div class="flex align-content-around align-items-center flex-wrap card-container m-auto">
                 <small class="p-error" v-for="(error, index) of v$.$errors" :key="index">
                     <strong>{{ error.$validator }}</strong>
@@ -54,7 +75,7 @@
                     <strong>{{ /*messagesOverride[error.$property][error.$validator]*/error.message }}</strong>
                 </small>
             </div>
-        </div>
+        </div>-->
     </div>
 </template>
 <script>
@@ -68,6 +89,8 @@ export default {
             form: {
                 fio: '',
                 birthday:'01/01/1990',
+                calendarValue: '01-01-2023',
+                time: '10:00',
                 about: '',
                 marital_status: true
             },
