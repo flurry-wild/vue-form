@@ -8,6 +8,9 @@
                 <div class="col-8 md:col-10">
                     <InputText type="text" v-model="form.fio" id="fio" class="m-3 w-full"/>
                 </div>
+                <div class="col-12 flex align-items-center justify-content-center">
+                    <span v-if="errors.fio" class="p-error">{{ errors.fio[0] }}</span>
+                </div>
             </div>
         </div>
         <div class="p-inputgroup mt-5 bg-green-400 p-6 border-round">
@@ -18,6 +21,9 @@
                 <div class="col-12 md:col-4">
                     <InputMask v-model="form.birthday" mask="99/99/9999" slotChar="mm/dd/yyyy" class="w-full"/>
                 </div>
+                <div class="col-12 flex align-items-center justify-content-center">
+                    <span v-if="errors.birthday" class="p-error">{{ errors.birthday[0] }}</span>
+                </div>
             </div>
         </div>
         <div class="p-inputgroup mt-5 bg-green-400 p-6 border-round">
@@ -26,8 +32,17 @@
                     <label for="calendar" class="m-4 font-semibold">Выберите дату собеседования</label>
                 </div>
                 <div class="col-12 md:col-4 flex justify-content-center align-items-center">
-                    <Calendar id="calendar" v-model="form.calendarValue" dateFormat="dd-mm-yy" class="w-full"></Calendar>
-                    <Calendar v-model="form.time" :showTime="true" :timeOnly="true" class="w-full"/>
+                    <Calendar id="calendar" v-model="form.interview_date" dateFormat="dd-mm-yy" class="w-full"
+                    name="interview_date"
+                    ></Calendar>
+                    <Calendar v-model="form.interview_time" :showTime="true" :timeOnly="true" class="w-full"
+                    name="interview_time"/>
+                </div>
+                <div class="col-12 flex justify-content-center align-items-center">
+                    <span v-if="errors.interview_date" class="p-error">{{ errors.interview_date[0] }}</span>
+                </div>
+                <div class="col-12 flex justify-content-center align-items-center">
+                    <span v-if="errors.interview_time" class="p-error">{{ errors.interview_time[0] }}</span>
                 </div>
             </div>
         </div>
@@ -38,6 +53,9 @@
                 </div>
                 <div class="col-12 md:col-8 flex justify-content-center align-items-center">
                     <Textarea v-model="form.about" :autoResize="true" rows="5" cols="70" id="about" class="w-full"/>
+                </div>
+                <div class="col-12 md:col-8 flex justify-content-center align-items-center">
+                    <span v-if="errors.about" class="p-error">{{ errors.about[0] }}</span>
                 </div>
             </div>
         </div>
@@ -50,37 +68,30 @@
                     <div class="col-12 md:col-8 flex justify-content-center align-items-center">
                         <div class="flex m-2 justify-content-center align-items-center">
                             <label for="ms1" class="m-1 font-semibold">Женат/Замужем </label>
-                            <RadioButton name="marital_status" value="true" v-model="marital_status" id="ms1"/>
+                            <RadioButton name="marital_status" value="true" v-model="form.marital_status" id="ms1"/>
                         </div>
                         <div class="flex m-2 justify-content-center align-items-center">
                             <label for="ms2" class="m-1 font-semibold">Не женат/Не замужем </label>
-                            <RadioButton name="marital_status" value="false" v-model="marital_status"  id="ms2"/>
+                            <RadioButton name="marital_status" value="false" v-model="form.marital_status"  id="ms2"/>
                         </div>
+                    </div>
+                    <div class="col-12 flex justify-content-center align-items-center">
+                        <span v-if="errors.marital_status" class="p-error">{{ errors.marital_status[0] }}</span>
                     </div>
                 </div>
             </div>
         </div>
         <div class="p-inputgroup mt-5 bg-green-400 p-6 border-round">
             <div class="flex align-content-around align-items-center flex-wrap card-container m-auto">
-                <Button label="Отправить" @click="checkForm"/>
+                <Button label="Отправить" @click="sendForm"/>
             </div>
         </div>
-<!--        <div class="p-inputgroup mt-5 bg-green-400 p-6 border-round">
-            <div class="flex align-content-around align-items-center flex-wrap card-container m-auto">
-                <small class="p-error" v-for="(error, index) of v$.$errors" :key="index">
-                    <strong>{{ error.$validator }}</strong>
-                    <small> on property</small>
-                    <strong>{{ error.$property }}</strong>
-                    <small> says:</small>
-                    <strong>{{ /*messagesOverride[error.$property][error.$validator]*/error.message }}</strong>
-                </small>
-            </div>
-        </div>-->
     </div>
 </template>
 <script>
-import { required } from '@vuelidate/validators'
-import { useVuelidate } from '@vuelidate/core'
+import { required } from '@vuelidate/validators';
+import { useVuelidate } from '@vuelidate/core';
+import axios from 'axios';
 
 export default {
     name: 'CandidateForm',
@@ -89,16 +100,17 @@ export default {
             form: {
                 fio: '',
                 birthday:'01/01/1990',
-                calendarValue: '01-01-2023',
-                time: '10:00',
+                interview_date: '',
+                interview_time: '',
                 about: '',
-                marital_status: true
+                marital_status: null
             },
             messagesOverride: {
                 fio: {
                     required/*: "You must fill the {attribute} field to continue"*/
                 }
-            }
+            },
+            errors: []
         }
     },
     setup: () => ({ v$: useVuelidate() }),
@@ -114,6 +126,16 @@ export default {
             if (!this.v$.form.$error) {
                 console.log('Валидация прошла успешно')
             }
+        },
+        sendForm() {
+            axios.post('/candidate', this.form)
+                .then((response) => {
+                    console.log(response);
+                })
+                .catch((error) => {
+                    this.errors = error.response.data.errors;
+                    console.log(this.errors);
+                });
         }
     }
 }
