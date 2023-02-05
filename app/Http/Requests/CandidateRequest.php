@@ -23,9 +23,13 @@ class CandidateRequest extends FormRequest
      */
     public function rules()
     {
+        $interviewDate = str_replace("T", " ", stristr($this->interview_date, '.', true));;
+        $this::merge(['interview_date' => date('Y-m-d H:i:s', strtotime($interviewDate))]);
+        $this::merge(['marital_status' => filter_var($this->marital_status, FILTER_VALIDATE_BOOLEAN)]);
+
         return [
             'about' => 'required|string',
-            'birthday' => 'required|date',
+            'birthday' => 'required|dateformat:Y-m-d',
             'fio' => 'required|string',
             'interview_date' => 'required|date',
             'marital_status' => 'required|string|in:true,false'

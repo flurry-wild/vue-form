@@ -17,7 +17,7 @@ class CreateCandidatesTable extends Migration
             $table->id();
             $table->string('fio');
             $table->date('birthday');
-            $table->date('interview_date');
+            $table->datetime('interview_date');
             $table->string('about');
             $table->boolean('marital_status');
             $table->timestamps();

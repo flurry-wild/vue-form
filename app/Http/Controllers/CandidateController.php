@@ -14,6 +14,6 @@ class CandidateController
 
     public function store(CandidateRequest $request, CreateCandidateForm $form)
     {
-        $form->create();
+        $form->create($request->validationData());
     }
 }

@@ -19,7 +19,8 @@
                     <label for="calendar" class="m-4 font-semibold">Дата рождения</label>
                 </div>
                 <div class="col-12 md:col-4">
-                    <Calendar v-model="form.birthday" dateFormat="dd-mm-yy" class="w-full"/>
+                    <Calendar v-model="form.birthday" dateFormat="yy-mm-dd" hourFormat="24" class="w-full"
+                    name="birthday" :showTime="false"/>
                 </div>
                 <div class="col-12 flex align-items-center justify-content-center">
                     <span v-if="errors.birthday" class="p-error">{{ errors.birthday[0] }}</span>
@@ -32,8 +33,8 @@
                     <label for="calendar" class="m-4 font-semibold">Выберите дату собеседования</label>
                 </div>
                 <div class="col-12 md:col-4 flex justify-content-center align-items-center">
-                    <Calendar v-model="form.interview_date" dateFormat="dd-mm-yy" class="w-full"
-                    name="interview_date" :showTime="true"
+                    <Calendar v-model="form.interview_date" dateFormat="yy-mm-dd" class="w-full"
+                    name="interview_date" :showTime="true" hourFormat="24"
                     ></Calendar>
                 </div>
                 <div class="col-12 flex justify-content-center align-items-center">
@@ -94,9 +95,8 @@ export default {
         return {
             form: {
                 fio: '',
-                birthday:'01-01-1990',
+                birthday:'1990-01-01',
                 interview_date: '',
-                interview_time: '',
                 about: '',
                 marital_status: null
             },

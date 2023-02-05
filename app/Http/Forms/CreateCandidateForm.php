@@ -6,9 +6,9 @@ use App\Models\Candidate;
 
 class CreateCandidateForm
 {
-    public function create()
+    public function create($data)
     {
-        $candidate = new Candidate();
+        $candidate = Candidate::create($data);
     }
 }
 
