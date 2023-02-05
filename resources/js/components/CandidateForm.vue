@@ -19,7 +19,7 @@
                     <label for="calendar" class="m-4 font-semibold">Дата рождения</label>
                 </div>
                 <div class="col-12 md:col-4">
-                    <InputMask v-model="form.birthday" mask="99/99/9999" slotChar="mm/dd/yyyy" class="w-full"/>
+                    <Calendar v-model="form.birthday" dateFormat="dd-mm-yy" class="w-full"/>
                 </div>
                 <div class="col-12 flex align-items-center justify-content-center">
                     <span v-if="errors.birthday" class="p-error">{{ errors.birthday[0] }}</span>
@@ -32,17 +32,12 @@
                     <label for="calendar" class="m-4 font-semibold">Выберите дату собеседования</label>
                 </div>
                 <div class="col-12 md:col-4 flex justify-content-center align-items-center">
-                    <Calendar id="calendar" v-model="form.interview_date" dateFormat="dd-mm-yy" class="w-full"
-                    name="interview_date"
+                    <Calendar v-model="form.interview_date" dateFormat="dd-mm-yy" class="w-full"
+                    name="interview_date" :showTime="true"
                     ></Calendar>
-                    <Calendar v-model="form.interview_time" :showTime="true" :timeOnly="true" class="w-full"
-                    name="interview_time"/>
                 </div>
                 <div class="col-12 flex justify-content-center align-items-center">
                     <span v-if="errors.interview_date" class="p-error">{{ errors.interview_date[0] }}</span>
-                </div>
-                <div class="col-12 flex justify-content-center align-items-center">
-                    <span v-if="errors.interview_time" class="p-error">{{ errors.interview_time[0] }}</span>
                 </div>
             </div>
         </div>
@@ -99,7 +94,7 @@ export default {
         return {
             form: {
                 fio: '',
-                birthday:'01/01/1990',
+                birthday:'01-01-1990',
                 interview_date: '',
                 interview_time: '',
                 about: '',

@@ -24,12 +24,11 @@ class CandidateRequest extends FormRequest
     public function rules()
     {
         return [
-            'about' => 'required|text',
+            'about' => 'required|string',
             'birthday' => 'required|date',
             'fio' => 'required|string',
             'interview_date' => 'required|date',
-            'interview_time' => 'required||time',
-            'marital_status' => 'required|boolean'
+            'marital_status' => 'required|string|in:true,false'
         ];
     }
 }
