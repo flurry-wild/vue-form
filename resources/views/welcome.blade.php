@@ -17,7 +17,6 @@
         </style>
         <link rel="stylesheet" href="{{ mix('css/app.css') }}">
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css">
-        <link rel="preload" as="image" href="images/photos.json" crossorigin>
     </head>
     <body>
         <div class="container">

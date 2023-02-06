@@ -14,8 +14,6 @@ use App\Http\Controllers\CandidateController;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/', [CandidateController::class, 'create']);
 
 Route::post('candidate', [CandidateController::class, 'store']);

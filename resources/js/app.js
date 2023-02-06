@@ -12,6 +12,7 @@ import Textarea from 'primevue/textarea';
 import Checkbox from 'primevue/checkbox';
 import RadioButton from 'primevue/radiobutton';
 import Button from 'primevue/button';
+import Message from 'primevue/message';
 
 import 'primevue/resources/themes/md-light-indigo/theme.css';
 import 'primeicons/primeicons.css';
@@ -29,5 +30,7 @@ app.component('Textarea', Textarea);
 app.component('Checkbox', Checkbox);
 app.component('RadioButton', RadioButton);
 app.component('Button', Button);
-app.use(PrimeVue).mount("#app");
+app.component('Message', Message);
+app.use(PrimeVue);
+app.mount("#app");
 

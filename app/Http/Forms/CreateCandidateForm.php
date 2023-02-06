@@ -8,7 +8,7 @@ class CreateCandidateForm
 {
     public function create($data)
     {
-        $candidate = Candidate::create($data);
+        return Candidate::create($data);
     }
 }
 

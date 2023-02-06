@@ -78,15 +78,17 @@
             </div>
         </div>
         <div class="p-inputgroup mt-5 bg-green-400 p-6 border-round">
-            <div class="flex align-content-around align-items-center flex-wrap card-container m-auto">
+            <div class="flex align-content-around align-items-center flex-wrap card-container m-auto flex-column">
                 <Button label="Отправить" @click="sendForm"/>
+                <transition-group name="p-message" tag="div">
+                    <Message v-for="msg of messages" :severity="msg.severity" :key="msg.id"
+                             :sticky="false" :life="2500">{{msg.content}}</Message>
+                </transition-group>
             </div>
         </div>
     </div>
 </template>
 <script>
-import { required } from '@vuelidate/validators';
-import { useVuelidate } from '@vuelidate/core';
 import axios from 'axios';
 
 export default {
@@ -100,37 +102,29 @@ export default {
                 about: '',
                 marital_status: null
             },
-            messagesOverride: {
-                fio: {
-                    required/*: "You must fill the {attribute} field to continue"*/
-                }
-            },
-            errors: []
-        }
-    },
-    setup: () => ({ v$: useVuelidate() }),
-    validations: {
-        form: {
-            fio: { required/*: "The {attribute} field is required xzcxzc"*/},
-            birthday: { required },
+            errors: [],
+            messages: [],
+            messageCount: 0
         }
     },
     methods: {
-        checkForm() {
-            this.v$.form.$touch();
-            if (!this.v$.form.$error) {
-                console.log('Валидация прошла успешно')
-            }
-        },
         sendForm() {
+            this.errors = [];
+
             axios.post('/candidate', this.form)
                 .then((response) => {
-                    console.log(response);
+                    if (response.status && response.status == 200 && response.data.id) {
+                        this.addMessages('Мы сохранили ваши данные');
+                    }
                 })
                 .catch((error) => {
                     this.errors = error.response.data.errors;
-                    console.log(this.errors);
                 });
+        },
+        addMessages(text) {
+            this.messages = [
+                {severity: 'success', content: text, id: this.messageCount++},
+            ]
         }
     }
 }

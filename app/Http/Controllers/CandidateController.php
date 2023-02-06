@@ -9,11 +9,13 @@ class CandidateController
 {
     public function create()
     {
-
+        return view('welcome');
     }
 
     public function store(CandidateRequest $request, CreateCandidateForm $form)
     {
-        $form->create($request->validationData());
+        $candidate = $form->create($request->validationData());
+
+        return response()->json($candidate);
     }
 }
