@@ -7,7 +7,7 @@
                 <img :src="slotProps.item.itemImageSrc" :alt="slotProps.item.alt" class="gallery-image" />
             </template>
             <template #thumbnail="slotProps">
-                <img :src="slotProps.item.thumbnailImageSrc" :alt="slotProps.item.alt" style="width:100px;"/>
+                <img :src="slotProps.item.thumbnailImageSrc" :alt="slotProps.item.alt" class="panel-item"/>
             </template>
         </Galleria>
     </div>
@@ -34,7 +34,19 @@ export default {
     max-width: 100%;
     background-repeat: no-repeat;
 }
+.panel-item{
+    width:100px;
+}
 .p-galleria-item-container{
     background-color:#000;
+}
+
+@media (max-width: 768px) {
+    .gallery-image{
+        height:30vh;
+    }
+    .panel-item{
+        width:50px;
+    }
 }
 </style>
