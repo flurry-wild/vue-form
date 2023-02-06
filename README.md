@@ -7,6 +7,7 @@ Laravel 8 + Vue 3.
 Сделано деление на 2 компонента.
 </p>
 <p><code>composer install</code></p>
+<p><code>php artisan migrate</code></p>
 <p><code>npm install</code></p>
 <p><code>npm run watch</code></p>
 <img src="img.png">
